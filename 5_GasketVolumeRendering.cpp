@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 typedef float point[3];
 point v[4] = {{0, 250, -250}, {0, 0, 250}, {250, -250, -250}, {-250, -250, -250}};
+
 int n;
 
 void triangle(point a, point b, point c)
