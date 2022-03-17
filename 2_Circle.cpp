@@ -3,14 +3,14 @@
 #include <math.h>
 #include <GL/glut.h>
 
-int x1, y1, x2, y2, r, flag = 0, n;
+int x1, yc1, x2, yc2, r, flag = 0, n;
 
 void drawPixel(int x, int y)
 {
 	glColor3f(1.0, 0.0, 0.0);
 	glPointSize(2.0);
 	glBegin(GL_POINTS);
-		glVertex2i(x, y);
+	glVertex2i(x, y);
 	glEnd();
 	glFlush();
 }
@@ -59,18 +59,18 @@ void myMouse(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && flag == 0)
 	{
 		x1 = x - 250;
-		y1 = 250 - y;
+		yc1 = 250 - y;
 		flag = 1;
 	}
 
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
 		x2 = x - 250;
-		y2 = 250 - y;
-		float exp = ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1));
+		yc2 = 250 - y;
+		float exp = ((x2 - x1) * (x2 - x1)) + ((yc2 - yc1) * (yc2 - yc1));
 		r = (int)(sqrt(exp));
-		printf("Centre = (%d, %d), radius = %d\n", x1, y1, r);
-		drawCircle(x1, y1, r);
+		printf("Centre = (%d, %d), radius = %d\n", x1, yc1, r);
+		drawCircle(x1, yc1, r);
 		flag = 0;
 	}
 }
@@ -84,8 +84,8 @@ void displayKey()
 	for (i = 0; i < n; i++)
 	{
 		printf("Enter coordinates of the centre, and the radius:\n");
-		scanf_s("%d %d %d", &x1, &y1, &r);
-		drawCircle(x1, y1, r);
+		scanf_s("%d %d %d", &x1, &yc1, &r);
+		drawCircle(x1, yc1, r);
 	}
 }
 
@@ -102,21 +102,21 @@ int main(int argc, char** argv)
 
 	switch (choice)
 	{
-		case 1:		printf("Enter the no. of circles: ");
-					scanf_s("%d", &n);
-					glutCreateWindow("Bresenham's Circle: Keyboard");
-					myInit();
-					glutDisplayFunc(displayKey);
-					break;
+	case 1:		printf("Enter the no. of circles: ");
+		scanf_s("%d", &n);
+		glutCreateWindow("Bresenham's Circle: Keyboard");
+		myInit();
+		glutDisplayFunc(displayKey);
+		break;
 
-		case 2:		glutCreateWindow("Bresenham's Circle: Mouse");
-					myInit();
-					glutMouseFunc(myMouse);
-					glutDisplayFunc(displayMouse);
-					break;
+	case 2:		glutCreateWindow("Bresenham's Circle: Mouse");
+		myInit();
+		glutMouseFunc(myMouse);
+		glutDisplayFunc(displayMouse);
+		break;
 
-		default:	printf("Invalid choice\n");
-					exit(0);
+	default:	printf("Invalid choice\n");
+		exit(0);
 	}
 	glutMainLoop();
 }
