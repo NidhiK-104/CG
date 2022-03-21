@@ -111,8 +111,6 @@ void myinit()
           glClearColor(1.0, 1.0, 1.0, 1.0);
           glColor3f(1.0, 0.0, 0.0);
           glLineWidth(2.0);
-          glMatrixMode(GL_PROJECTION);
-          glLoadIdentity();
           gluOrtho2D(0.0, 499.0, 0.0, 499.0);
 }
 
